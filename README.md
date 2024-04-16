@@ -1,2 +1,0 @@
-# AldeaRuizPineda
-Website Aldea
