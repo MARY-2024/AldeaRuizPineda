@@ -16,10 +16,6 @@ body {
     margin: 0;
 }
 
-	header, .main, footer {
-		max-width:1500px;
-		margin:20px auto;
-	}
 
 	header nav {
 		background: linear-gradient(to right, #0C2B93, #000000);
@@ -61,14 +57,27 @@ body {
 
 		}
 		
-	
-
-	.main .articles {
-		width:68.5%;
-		margin-right:1.5%;
-		float:left;
+	.main{
+		display: flex; /* Habilita Flexbox */
+		flex-wrap: wrap; /* Permite que los items se envuelvan en la siguiente línea si no hay espacio suficiente */
+		justify-content: space-between; /* Distribuye el espacio entre y alrededor de los items de manera uniforme */
+		align-items: flex-start; /* Alinea los items al comienzo de la línea del contenedor flex */
+		margin: 20px auto; /* Añade margen para centrar y dar espacio alrededor */
+		max-width: 1500px; /* Máximo ancho del contenedor principal */
 	}
 
+	.main .articles, .main .aside {
+		box-sizing: border-box; /* Asegura que padding y border estén incluidos en el ancho/altura */
+	}
+	
+	.main .articles {
+		flex: 3; /* Da a articles 3 partes del espacio disponible */
+		padding-right: 10px;
+		padding-left: 10px;
+	}
+	.main .aside {
+		flex: 1; /* Da a aside 1 parte del espacio disponible */
+	}
 	.main .articles article {
 		background: #ffffffec; /* Color de fondo del artículo */
 		margin-bottom: 20px; /* Espacio entre el pie y el body */
@@ -150,11 +159,14 @@ body {
 		}										
 
 	aside {
-		width:30%;
+		align-items: center;
 		background:#D3C6E1;
 		float: left;
 		padding: 20px;
 		box-sizing:border-box;
+		flex: 1 1 30%; /* Ocupa el 30% del espacio disponible y permite crecer y encogerse */
+		margin-right: 10px;
+		margin-left: 10px;
 	}
 
 	footer {
@@ -170,13 +182,33 @@ body {
 		font-family: Arial, Helvetica, sans-serif;
 	}
 
-
+	@media (max-width: 1366px) {
+		.main {
+			flex-direction: row; /* Fuerza la disposición en fila para todas las pantallas más grandes que móviles */
+		}
+	
+		.main .articles, .main .aside {
+			width: auto; /* Permite que el width se ajuste automáticamente */
+			flex: none; /* Desactiva la flexibilidad para ajustes manuales */
+		}
+	
+		.main .articles {
+			flex: 3 1 60%; /* Ajuste para mantener proporción mayor para articles */
+		}
+	
+		.main .aside {
+			flex: 1 1 38%; /* Ajuste para mantener proporción menor para aside */
+		}
+	}
 /* Media queries para dispositivos con un ancho máximo de 768px */
 @media (max-width: 768px) {
-    header, .main, footer {
-        width: 95%; /* Hace que el ancho sea el del dispositivo */
-        margin: 0;
-        padding: 10px;
+    .main {
+        flex-direction: column; /* Cambia la dirección del flex a vertical para móviles */
+    }
+
+    .main .articles, .main .aside {
+        flex: 1 1 100%; /* Hace que cada sección ocupe el 100% del ancho en móviles */
+        margin-right: 0; /* Remueve el margen derecho en móviles */
     }
 
 
